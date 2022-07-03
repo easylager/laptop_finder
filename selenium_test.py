@@ -10,9 +10,14 @@ def get_number(url):
     driver = webdriver.Chrome(ChromeDriverManager().install())
     driver.get(url=url)
     print(driver)
+
+
+    'ncf'iqenfio
     button = driver.find_element(By.XPATH, "//div[@data_name='listings']")
     button.click()
+
     sleep(10)
+
     number = driver.find_element(By.XPATH, '//section').text.strip()
     return number
 
