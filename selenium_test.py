@@ -6,6 +6,8 @@ from selenium.webdriver.common.by import By
 from webdriver_manager.chrome import ChromeDriverManager
 
 def get_number(url):
+qqwqwqwqw
+
 
     driver = webdriver.Chrome(ChromeDriverManager().install())
     driver.get(url=url)
