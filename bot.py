@@ -32,7 +32,9 @@ async def news_every_minute():
             headers=UserAgentsHandler.header(),
             proxies=ProxiesHandler.proxy()
         )
+        print(response_req)
         bs_object = BeautifulSoup(response_req.text, 'lxml')
+        print(bs_object)
         list_of_items = bs_object.find('div', {"data-name": "listings"})
 
         items = list_of_items.find_all('section')
