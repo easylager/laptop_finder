@@ -29,19 +29,23 @@ dp = Dispatcher(bot=bot)
 
 async def news_every_minute():
     while True:
-        http_manager = urllib3.PoolManager()
+
+        """http_manager = urllib3.PoolManager()
         response = http_manager.request(
             'GET',
             'https://www.kufar.by/l/r~minsk/noutbuki?clp=v.or%3A3%2C5%2C1&ot=0&prc=r%3A0%2C30000&query=%D0%BD%D0%BE%D1%83%D1%82%D0%B1%D1%83%D0%BA&sort=lst.d'
-        )
-        """ response_req = requests.get(
+        )"""
+
+        response_req = requests.get(
             Goods.LAPTOPS,
             headers=UserAgentsHandler.header(),
             proxies=ProxiesHandler.proxy()
-        )"""
+        )
 
-        bs_object = BeautifulSoup(response.data, 'lxml')
+
+        bs_object = BeautifulSoup(response_req.text, 'lxml')
         logging.error(f'{bs_object}')
+
         list_of_items = bs_object.find('div', {"data-name": "listings"})
 
         items = list_of_items.find_all('section')
