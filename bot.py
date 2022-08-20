@@ -35,16 +35,18 @@ async def news_every_minute():
             'GET',
             'https://www.kufar.by/l/r~minsk/noutbuki?clp=v.or%3A3%2C5%2C1&ot=0&prc=r%3A0%2C30000&query=%D0%BD%D0%BE%D1%83%D1%82%D0%B1%D1%83%D0%BA&sort=lst.d'
         )"""
-
+        proxies = {
+            'http': 'http://194.158.203.14:80',
+        }
         response_req = requests.get(
             Goods.LAPTOPS,
             headers=UserAgentsHandler.header(),
-            proxies=ProxiesHandler.proxy()
+            proxies=proxies
         )
-
+        print(response_req.json())
 
         bs_object = BeautifulSoup(response_req.text, 'lxml')
-        logging.error(f'{bs_object}')
+        """logging.error(f'{bs_object}')"""
 
         list_of_items = bs_object.find('div', {"data-name": "listings"})
 
