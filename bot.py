@@ -44,13 +44,20 @@ async def news_every_minute():
             headers=UserAgentsHandler.header(),
             proxies=proxies
         )"""
-        response_req = requests.get(
+        """response_req = requests.get(
             Goods.LAPTOPS,
             headers={'user-agent': '194.158.203.14:80'},
             proxies=proxies
+        )"""
+
+        s = requests.Session()
+        s.proxies.update(proxies)
+        resp = s.get(
+            'https://www.kufar.by/l/r~minsk/noutbuki?clp=v.or%3A3%2C5%2C1&ot=0&prc=r%3A0%2C30000&query=%D0%BD%D0%BE%D1%83%D1%82%D0%B1%D1%83%D0%BA&sort=lst.d',
+             headers={'user-agent': '194.158.203.14:80'}
         )
 
-        bs_object = BeautifulSoup(response_req.text, 'lxml')
+        bs_object = BeautifulSoup(resp.text, 'lxml')
         logging.error(f'{bs_object}')
 
         list_of_items = bs_object.find('div', {"data-name": "listings"})
