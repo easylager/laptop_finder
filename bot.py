@@ -3,6 +3,7 @@ import asyncio
 import requests
 import urllib3
 import re
+import json
 import logging
 
 
@@ -38,12 +39,21 @@ async def news_every_minute():
         proxies = {
             'http': 'http://194.158.203.14:80',
         }
-        response_req = requests.get(
+        """response_req = requests.get(
             Goods.LAPTOPS,
             headers=UserAgentsHandler.header(),
             proxies=proxies
+        )"""
+        response_req = requests.get(
+            Goods.LAPTOPS,
+            headers={'user-agent': '194.158.203.14:80'},
+            proxies=proxies
         )
-        print(response_req.json())
+
+        #print(dir(response_req))
+        print(dir(response_req.request))
+        print(response_req.request.headers)
+        print(response_req.headers)
 
         bs_object = BeautifulSoup(response_req.text, 'lxml')
         """logging.error(f'{bs_object}')"""
