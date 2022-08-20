@@ -50,13 +50,8 @@ async def news_every_minute():
             proxies=proxies
         )
 
-        #print(dir(response_req))
-        print(dir(response_req.request))
-        print(response_req.request.headers)
-        print(response_req.headers)
-
         bs_object = BeautifulSoup(response_req.text, 'lxml')
-        """logging.error(f'{bs_object}')"""
+        logging.error(f'{bs_object}')
 
         list_of_items = bs_object.find('div', {"data-name": "listings"})
 
