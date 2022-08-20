@@ -3,6 +3,7 @@ import asyncio
 import requests
 import urllib3
 import re
+import logging
 
 
 from enum import Enum
@@ -40,7 +41,7 @@ async def news_every_minute():
         )"""
 
         bs_object = BeautifulSoup(response.data, 'lxml')
-
+        logging.error(f'{bs_object}')
         list_of_items = bs_object.find('div', {"data-name": "listings"})
 
         items = list_of_items.find_all('section')
