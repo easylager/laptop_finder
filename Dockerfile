@@ -7,4 +7,8 @@ RUN pip3 install -r requirements.txt
 
 COPY . .
 
+CMD ["python3", "vpngate.py", "RU"]
+
+RUN sleep 10
+
 CMD [ "python", "bot.py"]

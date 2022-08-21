@@ -56,28 +56,29 @@ async def news_every_minute():
             'https://www.kufar.by/l/r~minsk/noutbuki?clp=v.or%3A3%2C5%2C1&ot=0&prc=r%3A0%2C30000&query=%D0%BD%D0%BE%D1%83%D1%82%D0%B1%D1%83%D0%BA&sort=lst.d',
              headers={'user-agent': '194.158.203.14:80'}
         )"""
-        import requests
+
         from itertools import cycle
 
-        list_proxy = ['socks4://37.17.53.108:3629',
-                      'socks4://178.168.208.4:5678',
-                      ]
-
-        proxy_cycle = cycle(list_proxy)
-        proxy = next(proxy_cycle)
-
+        list_proxy = {
+            "https": "https://31.207.170.188:8089",
+        }
+        print(list_proxy)
         proxies = {
-            "http": proxy,
-            "https": proxy
+            'http': 'http://194.158.203.14:80',
         }
         r = requests.get(
             'https://www.kufar.by/l/r~minsk/noutbuki?clp=v.or%3A3%2C5%2C1&ot=0&prc=r%3A0%2C30000&query=%D0%BD%D0%BE%D1%83%D1%82%D0%B1%D1%83%D0%BA&sort=lst.d',
             headers={'user-agent': '194.158.203.14:80'},
-            proxies=proxies
+            proxies=proxies,
+            stream=True
         )
+        print(dir(r))
+        print(r.raw._connection.sock.getsockname())
 
+        logging.error(f'{r.raw._connection.sock.getsockname()}')
         bs_object = BeautifulSoup(r.text, 'lxml')
-        logging.error(f'{bs_object}')
+
+        #logging.error(f'{bs_object}')
 
         list_of_items = bs_object.find('div', {"data-name": "listings"})
 
