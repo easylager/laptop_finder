@@ -50,14 +50,33 @@ async def news_every_minute():
             proxies=proxies
         )"""
 
-        s = requests.Session()
+        """s = requests.Session()
         s.proxies.update(proxies)
         resp = s.get(
             'https://www.kufar.by/l/r~minsk/noutbuki?clp=v.or%3A3%2C5%2C1&ot=0&prc=r%3A0%2C30000&query=%D0%BD%D0%BE%D1%83%D1%82%D0%B1%D1%83%D0%BA&sort=lst.d',
              headers={'user-agent': '194.158.203.14:80'}
+        )"""
+        import requests
+        from itertools import cycle
+
+        list_proxy = ['socks4://37.17.53.108:3629',
+                      'socks4://178.168.208.4:5678',
+                      ]
+
+        proxy_cycle = cycle(list_proxy)
+        proxy = next(proxy_cycle)
+
+        proxies = {
+            "http": proxy,
+            "https": proxy
+        }
+        r = requests.get(
+            'https://www.kufar.by/l/r~minsk/noutbuki?clp=v.or%3A3%2C5%2C1&ot=0&prc=r%3A0%2C30000&query=%D0%BD%D0%BE%D1%83%D1%82%D0%B1%D1%83%D0%BA&sort=lst.d',
+            headers={'user-agent': '194.158.203.14:80'},
+            proxies=proxies
         )
 
-        bs_object = BeautifulSoup(resp.text, 'lxml')
+        bs_object = BeautifulSoup(r.text, 'lxml')
         logging.error(f'{bs_object}')
 
         list_of_items = bs_object.find('div', {"data-name": "listings"})
